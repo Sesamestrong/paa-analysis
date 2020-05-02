@@ -1,0 +1,27 @@
+{
+    "steps": [{
+            "headers": {
+                "uri": "https://www.google.com/search",
+                "qs":{"q":"${query}"}
+            },
+            "frame": {
+                "%ved": "[data-ved] @ data-ved",
+                "%cs": "[data-cs] @ data-cs",
+                "%info":"[data-cs]",
+                "%id": "[data-cs] @ id",
+                "%kts": ["[data-kt] @ data-kt"],
+                "%questions": ["[data-kt]"],
+                "%noScriptLink": "noscript a @ href",
+                "%ei":"input[name=ei] @ value"
+            }
+        },
+        {
+            "headers": {
+                "uri": "https://www.google.com${noScriptLink}"
+            },
+            "frame": {
+                "%answers": ["div.ZINbbc h2 ~ .M56Nqc > :first-child > :first-child > :first-child > :first-child > :first-child > div > div > div"]
+            }
+        }
+    ]
+}

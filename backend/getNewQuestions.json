@@ -1,0 +1,21 @@
+{
+    "steps": [{
+        "headers": {
+            "uri": "https://www.google.com/search",
+            "qs": {
+                "q": "${query}",
+                "vet": "1${ved}..i",
+                "asearch": "rq",
+                "safe": "strict",
+                "ei": "${ei}",
+                "yq": 3,
+                "async": "state:${cs}.${kt},_id:${id},_pms:s,_fmt:pc"
+            }
+        },
+        "frame":{
+            "%questions":["[data-kt]"],
+            "%kts":["[data-kt] @ data-kt"],
+            "%answers":["div[data-attrid=\"wa:/description\"] span span"]
+        }
+    }]
+}
