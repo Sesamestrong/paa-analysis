@@ -20,7 +20,7 @@ function App() {
           Learn React
         </a>
       </header>
-      <Questions question="Irish potato famine" allowAnswer={false}/>
+      <Questions question="Irish potato famine" endTerm="fish" allowAnswer={false}/>
     </div>
   );
 }

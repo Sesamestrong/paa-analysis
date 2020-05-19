@@ -2,7 +2,7 @@ require("dotenv").config();
 const {
     runEntireScraper
 } = require("@sesamestrong/json-scraper");
-const UserAgent=require("user-agents");
+const UserAgent = require("user-agents");
 const bcrypt = require("bcrypt");
 const NUM_ROUNDS = 12;
 const startGame = require("./getPaaInfo.json");
@@ -91,7 +91,7 @@ games.statics.new = async function(query, endTerm, allowAnswer) {
     } = (await runEntireScraper(startGame, {
         vars: {
             query,
-            agent:(new UserAgent()).toString(),
+            agent: (new UserAgent()).toString(),
         }
     })).vars;
     console.log(info);
@@ -143,7 +143,9 @@ games.methods.click = async function(idx) {
     await this.save();
 };
 games.methods.hasWon = function(questions = this.questions) {
+    console.log(this.endTerm, this.query);
     const lowKey = this.endTerm.toLowerCase();
+    console.log(question);
     return questions.find(question => question.question.toLowerCase().includes(lowKey) || this.allowAnswer && question.answer && question.answer.toLowerCase().includes(lowKey));
 };
 Game = mongoose.model("Game", games);
