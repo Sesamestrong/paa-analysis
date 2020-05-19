@@ -142,7 +142,7 @@ games.methods.click = async function(idx) {
 };
 games.methods.hasWon = function(questions = this.questions) {
     const lowKey = this.endTerm.toLowerCase();
-    return questions.find(question => question.question.toLowerCase().includes(lowKey) || this.allowAnswer && question.answer.toLowerCase().includes(lowKey));
+    return questions.find(question => question.question.toLowerCase().includes(lowKey) || this.allowAnswer && question.answer?.toLowerCase?.()?.includes?.(lowKey));
 };
 Game = mongoose.model("Game", games);
 /*
