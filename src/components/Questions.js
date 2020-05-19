@@ -30,12 +30,13 @@ export default function Questions({
     allowAnswer
 }) {
     const [questions, setQuestions] = useState([]);
+    console.log(questions);
     const [won, setWon] = useState(false);
     const [id, setId] = useState(null);
-    const click = idx => fetch(`${API_URL}/click?id=${id}&idx=${idx}`).then(res => res.json()).then(({
+    const click = idx => fetch(`${API_URL}/click?id=${encodeURIComponent(id)}&idx=${encodeURIComponent(idx)}`).then(res => res.json()).then(({
         questions,
         complete,
-    }) => (setQuestions(question), setWon(complete)));
+    }) => (setQuestions(questions), setWon(complete)));
     useEffect(() => {
         fetch(`${API_URL}/challenge`, {
             method: "POST",
@@ -47,11 +48,11 @@ export default function Questions({
                 endTerm,
                 allowAnswer
             })
-        }).then(res => res.json()).then(({
+        }).then(res => res.json().then(({
             id,
             questions,
             complete
-        }) => (setWon(complete), setQuestions(questions), setId(id)));
+        }) => (window.questions=questions,setWon(complete), setQuestions(questions), setId(id))));
     }, []);
 
     return (
@@ -60,8 +61,8 @@ export default function Questions({
                 (<h1>You won!</h1>):
                 null
         }
-        <ul>{
-            questions.map(({question,answer,idx}) =>
+        <ul>{console.log("ques",questions)||
+            questions.map(({question,answer},idx) =>
                 (<Question selectQuestion={evt=>click(idx)} question={question} answer={answer} idx={idx}/>))
         }</ul>
     </div>);

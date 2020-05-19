@@ -118,6 +118,7 @@ games.statics.new = async function(query, endTerm, allowAnswer) {
 games.methods.click = async function(idx) {
     if (this.completed) return;
     const question = this.questions[idx];
+    console.log("Length",this.questions.length,idx);
     const {
         questions,
         answers,
@@ -145,8 +146,7 @@ games.methods.click = async function(idx) {
 games.methods.hasWon = function(questions = this.questions) {
     console.log(this.endTerm, this.query);
     const lowKey = this.endTerm.toLowerCase();
-    console.log(question);
-    return questions.find(question => question.question.toLowerCase().includes(lowKey) || this.allowAnswer && question.answer && question.answer.toLowerCase().includes(lowKey));
+    return questions.find(question => console.log(question)||question.question.toLowerCase().includes(lowKey) || this.allowAnswer && question.answer && question.answer.toLowerCase().includes(lowKey));
 };
 Game = mongoose.model("Game", games);
 /*
