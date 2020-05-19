@@ -21,7 +21,7 @@
   },
   "scripts": {
     "app": "react-scripts start",
-    "build": "react-scripts build",
+    "predeploy": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "start": "node backend/index.js"
