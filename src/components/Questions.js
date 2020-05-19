@@ -36,7 +36,10 @@ export default function Questions({
     const click = idx => fetch(`${API_URL}/click?id=${encodeURIComponent(id)}&idx=${encodeURIComponent(idx)}`).then(res => res.json()).then(({
         questions,
         complete,
-    }) => (setQuestions(questions), setWon(complete)));
+    }) => {
+        setQuestions(questions);
+        setWon(complete);
+    });
     useEffect(() => {
         fetch(`${API_URL}/challenge`, {
             method: "POST",
@@ -52,8 +55,12 @@ export default function Questions({
             id,
             questions,
             complete
-        }) => (window.questions=questions,setWon(complete), setQuestions(questions), setId(id))));
-    }, []);
+        }) => {
+            setWon(complete);
+            setQuestions(questions);
+            setId(id);
+        }));
+    });
 
     return (
         <div>{
