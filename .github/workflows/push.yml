@@ -1,0 +1,27 @@
+on:
+  push:
+    branches:
+      master
+name: Build and deploy to gh-pages
+jobs:
+  deploy:
+    name: Build and deploy to gh-pages
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Install
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+    - run: npm install
+    - name: Build
+      uses: actions/setup-node@v1
+      with:
+        node-version: 12
+    - run: npm run predeploy
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+        publish_dir: ./build
