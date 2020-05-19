@@ -79,6 +79,7 @@ games = new mongoose.Schema({
 });
 
 games.statics.new = async function(query, endTerm, allowAnswer) {
+    console.log("New game! scraper");
     const {
         questions: rawQuestions,
         answers,
@@ -118,7 +119,7 @@ games.statics.new = async function(query, endTerm, allowAnswer) {
 games.methods.click = async function(idx) {
     if (this.completed) return;
     const question = this.questions[idx];
-    console.log("Length",this.questions.length,idx);
+    console.log("Running scraper!");
     const {
         questions,
         answers,
@@ -133,6 +134,7 @@ games.methods.click = async function(idx) {
             cs: this.cs
         }
     })).vars;
+    console.log(questions,answers.map(b=>b.slice(0,30)),kts);
     const newQuestions = questions.map((question, idx) => ({
         question,
         kt: kts[idx],
@@ -146,7 +148,7 @@ games.methods.click = async function(idx) {
 games.methods.hasWon = function(questions = this.questions) {
     console.log(this.endTerm, this.query);
     const lowKey = this.endTerm.toLowerCase();
-    return questions.find(question => console.log(question)||question.question.toLowerCase().includes(lowKey) || this.allowAnswer && question.answer && question.answer.toLowerCase().includes(lowKey));
+    return questions.find(question => question.question.toLowerCase().includes(lowKey) || this.allowAnswer && question.answer && question.answer.toLowerCase().includes(lowKey));
 };
 Game = mongoose.model("Game", games);
 /*

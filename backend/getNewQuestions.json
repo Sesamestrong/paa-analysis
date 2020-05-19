@@ -15,7 +15,7 @@
         "frame":{
             "%questions":["[data-kt]"],
             "%kts":["[data-kt] @ data-kt"],
-            "%answers":["div[data-attrid=\"wa:/description\"] span span"]
+            "%answers":["div.mod"]
         }
     }]
 }

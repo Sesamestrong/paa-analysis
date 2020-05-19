@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 import styled from 'styled-components';
 
-const API_URL = 'https://people-also-asked.herokuapp.com';
+const API_URL = 'https://people-also-asked.herokuapp.com';//'http://localhost:4000'
 
 const ClickableLi = styled.li `
     :hover {
@@ -41,6 +41,7 @@ export default function Questions({
         setWon(complete);
     });
     useEffect(() => {
+        console.log("Running!");
         fetch(`${API_URL}/challenge`, {
             method: "POST",
             headers: {
@@ -60,7 +61,7 @@ export default function Questions({
             setQuestions(questions);
             setId(id);
         }));
-    });
+    },[question,endTerm,allowAnswer]);
 
     return (
         <div>{
