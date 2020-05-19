@@ -2,7 +2,8 @@
     "steps": [{
             "headers": {
                 "uri": "https://www.google.com/search",
-                "qs":{"q":"${query}"}
+                "qs":{"q":"${query}"},
+                "headers":{"User-Agent":"${agent}"}
             },
             "frame": {
                 "%ved": "[data-ved] @ data-ved",

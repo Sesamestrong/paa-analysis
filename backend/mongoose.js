@@ -2,6 +2,7 @@ require("dotenv").config();
 const {
     runEntireScraper
 } = require("@sesamestrong/json-scraper");
+const UserAgent=require("user-agents");
 const bcrypt = require("bcrypt");
 const NUM_ROUNDS = 12;
 const startGame = require("./getPaaInfo.json");
@@ -89,7 +90,8 @@ games.statics.new = async function(query, endTerm, allowAnswer) {
         info
     } = (await runEntireScraper(startGame, {
         vars: {
-            query
+            query,
+            agent:(new UserAgent()).toString(),
         }
     })).vars;
     console.log(info);
@@ -100,7 +102,7 @@ games.statics.new = async function(query, endTerm, allowAnswer) {
         questions: rawQuestions.map((rawQuestion, idx) => ({
             question: rawQuestion,
             answer: answers[idx],
-            kts: kts[idx]
+            kt: kts[idx]
         })),
         ei,
         id,
@@ -129,10 +131,10 @@ games.methods.click = async function(idx) {
             query: question.question,
             cs: this.cs
         }
-    })).vars.questions;
+    })).vars;
     const newQuestions = questions.map((question, idx) => ({
         question,
-        kt: kts[ids],
+        kt: kts[idx],
         answer: answers[idx]
     }));
     this.questions = [...this.questions, ...newQuestions];
