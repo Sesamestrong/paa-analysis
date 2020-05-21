@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 import styled from 'styled-components';
 
-const API_URL = window.location.origin.startsWith('http://localhost')?'https://people-also-asked.herokuapp.com':'http://localhost:4000';
+const API_URL = window.location.origin.startsWith('http://localhost')?'http://localhost:4000':'https://people-also-asked.herokuapp.com';
 
 const ClickableLi = styled.li `
     :hover {
