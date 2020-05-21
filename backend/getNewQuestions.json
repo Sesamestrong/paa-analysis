@@ -8,14 +8,19 @@
                 "asearch": "rq",
                 "safe": "strict",
                 "ei": "${ei}",
-                "yq": 3,
+                "yv": 3,
                 "async": "state:${cs}.${kt},_id:${id},_pms:s,_fmt:pc"
+            },
+            "headers":{
+                "User-Agent":"${agent}",
+                "Referer":"https://www.google.com/"
             }
         },
         "frame":{
             "%questions":["[data-kt]"],
             "%kts":["[data-kt] @ data-kt"],
-            "%answers":["div.mod"]
+            "%answers":["div.mod"],
+            "%cs":"div[data-cs] @ data-cs"
         }
     }]
 }

@@ -76,10 +76,14 @@ games = new mongoose.Schema({
         type: Boolean,
         required: true
     },
+    agent: {
+        type: String,
+        required: true
+    }
 });
 
 games.statics.new = async function(query, endTerm, allowAnswer) {
-    console.log("New game! scraper");
+    const agentString=(new UserAgent()).toString();
     const {
         questions: rawQuestions,
         answers,
@@ -92,10 +96,9 @@ games.statics.new = async function(query, endTerm, allowAnswer) {
     } = (await runEntireScraper(startGame, {
         vars: {
             query,
-            agent: (new UserAgent()).toString(),
+            agent: agentString,
         }
     })).vars;
-    console.log(info);
     const game = await new Game({
         query,
         endTerm,
@@ -110,7 +113,8 @@ games.statics.new = async function(query, endTerm, allowAnswer) {
         cs,
         ved,
         completed: false,
-        allowAnswer
+        allowAnswer,
+        agent: agentString,
     });
     if (game.hasWon()) game.completed = true;
     await game.save();
@@ -119,11 +123,11 @@ games.statics.new = async function(query, endTerm, allowAnswer) {
 games.methods.click = async function(idx) {
     if (this.completed) return;
     const question = this.questions[idx];
-    console.log("Running scraper!");
     const {
         questions,
         answers,
-        kts
+        kts,
+        cs,
     } = (await runEntireScraper(getNewQuestions, {
         vars: {
             id: this.id,
@@ -131,22 +135,22 @@ games.methods.click = async function(idx) {
             ved: this.ved,
             kt: question.kt,
             query: question.question,
-            cs: this.cs
+            cs: this.cs,
+            agent: this.agent,
         }
     })).vars;
-    console.log(questions,answers.map(b=>b.slice(0,30)),kts);
     const newQuestions = questions.map((question, idx) => ({
         question,
         kt: kts[idx],
         answer: answers[idx]
     }));
+    this.cs=cs;
     this.questions = [...this.questions, ...newQuestions];
     this.numClicks++;
     if (this.hasWon(newQuestions)) this.completed = true;
     await this.save();
 };
 games.methods.hasWon = function(questions = this.questions) {
-    console.log(this.endTerm, this.query);
     const lowKey = this.endTerm.toLowerCase();
     return questions.find(question => question.question.toLowerCase().includes(lowKey) || this.allowAnswer && question.answer && question.answer.toLowerCase().includes(lowKey));
 };

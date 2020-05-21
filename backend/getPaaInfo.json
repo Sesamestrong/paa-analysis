@@ -6,7 +6,7 @@
                 "headers":{"User-Agent":"${agent}"}
             },
             "frame": {
-                "%ved": "[data-ved] @ data-ved",
+                "%ved": ".xpdopen h2 + [data-ved] @ data-ved",
                 "%cs": "[data-cs] @ data-cs",
                 "%info":"[data-cs]",
                 "%id": "[data-cs] @ id",
