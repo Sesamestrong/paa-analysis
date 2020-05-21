@@ -9,7 +9,6 @@ function App() {
     const [query, setQuery] = useState("Irish potato famine");
     const [endTerm, setEndTerm] = useState("fish");
     const [allowAnswer, setAllowAnswer] = useState(false);
-    useEffect(()=>{console.log(query,endTerm,allowAnswer);});
     return (
         <div className="App">
       <input value={query} onChange={(evt)=>setQuery(evt.target.value)}/>

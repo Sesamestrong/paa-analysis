@@ -4,7 +4,7 @@ import React, {
 } from 'react';
 import styled from 'styled-components';
 
-const API_URL = window.location.origin.startsWith('http://localhost')?'http://localhost:4000':'https://people-also-asked.herokuapp.com';
+const API_URL = window.location.origin.startsWith('http://localhost') ? 'http://localhost:4000' : 'https://people-also-asked.herokuapp.com';
 
 const ClickableLi = styled.li `
     :hover {
@@ -30,18 +30,16 @@ export default function Questions({
     allowAnswer
 }) {
     const [questions, setQuestions] = useState([]);
-    console.log(questions);
     const [won, setWon] = useState(false);
     const [id, setId] = useState(null);
     const click = idx => fetch(`${API_URL}/click?id=${encodeURIComponent(id)}&idx=${encodeURIComponent(idx)}`).then(res => res.json()).then(({
         questions,
-        complete,
+        completed,
     }) => {
         setQuestions(questions);
-        setWon(complete);
+        setWon(completed);
     });
     useEffect(() => {
-        console.log("Running!");
         fetch(`${API_URL}/challenge`, {
             method: "POST",
             headers: {
@@ -55,13 +53,13 @@ export default function Questions({
         }).then(res => res.json().then(({
             id,
             questions,
-            complete
+            completed
         }) => {
-            setWon(complete);
+            setWon(completed);
             setQuestions(questions);
             setId(id);
         }));
-    },[question,endTerm,allowAnswer]);
+    }, [question, endTerm, allowAnswer]);
 
     return (
         <div>{
@@ -69,7 +67,8 @@ export default function Questions({
                 (<h1>You won!</h1>):
                 null
         }
-        <ul>{console.log("ques",questions)||
+        <ul>
+    {
             questions.map(({question,answer},idx) =>
                 (<Question selectQuestion={evt=>click(idx)} question={question} answer={answer} idx={idx}/>))
         }</ul>

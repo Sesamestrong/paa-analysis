@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({
             questions: game.questions,
             endTerm: game.endTerm,
             allowAnswer: game.allowAnswer,
-            complete: game.completed
+            completed: game.completed
         });
     });
     app.get("/click", async (req, res) => {
@@ -37,8 +37,8 @@ app.use(bodyParser.urlencoded({
             idx,
             id
         } = req.query;
-        console.log(idx,id);
-        if (!(idx && id!==undefined)) return res.status(400).json({
+        console.log(idx, id);
+        if (!(idx && id !== undefined)) return res.status(400).json({
             err: "Required fields missing."
         });
         const game = await Game.findById(id);
@@ -52,7 +52,7 @@ app.use(bodyParser.urlencoded({
             questions: game.questions,
             endTerm: game.endTerm,
             allowAnswer: game.allowAnswer,
-            complete: game.completed
+            completed: game.completed
         });
     });
     app.get("/challenge", async (req, res) => {
@@ -62,25 +62,33 @@ app.use(bodyParser.urlencoded({
         if (!id) return res.status(400).json({
             err: "Missing required field."
         });
-        const game  = await Game.findById(id);
+        const game = await Game.findById(id);
         res.json({
             id: game._id,
             query: game.query,
             questions: game.questions,
             endTerm: game.endTerm,
             allowAnswer: game.allowAnswer,
-            complete: game.completed
+            completed: game.completed
         });
     });
-    app.get("/google", async (req, res) => {
-        const txt = await request({
-            uri: "https://www.google.com/search",
-            "qs": {
-                q: "irish potato famine"
-            },
-            headers:{"User-Agent": (new UserAgent()).toString()}
-        });
-        res.send(txt);
+    app.get("/challenges", async (req, res) => {
+        const games = await Game.find();
+        res.json(games.map(({
+            id,
+            query,
+            endTerm,
+            numClicks,
+            completed,
+            allowAnswer
+        }) => ({
+            id,
+            query,
+            endTerm,
+            numClicks,
+            completed,
+            allowAnswer
+        })));
     });
 
     const port = process.env.PORT || 4000;
