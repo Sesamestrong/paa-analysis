@@ -527,7 +527,7 @@ export default () => {
 				);
 			}
 		})();
-	}, [gameId,enabled,playing,questions]);
+	}, [gameId,playing]);
 
 	return (
 		<Container>
