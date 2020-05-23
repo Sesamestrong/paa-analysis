@@ -1,0 +1,1 @@
+{"version":3,"sources":["index.css"],"names":[],"mappings":"AAAA,gBACE,QAAS,CACT,WACF,CAEA,wBACE,YACF","file":"main.0c554b18.chunk.css","sourcesContent":["html, body, #root {\n  margin: 0;\n  height: 100%;\n}\n\nbody::-webkit-scrollbar {\n  display: none;\n}"]}
