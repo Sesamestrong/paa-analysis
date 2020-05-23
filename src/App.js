@@ -1,6 +1,5 @@
 import React, {
-    useState,
-    useEffect
+    useState
 } from 'react';
 import {
     HashRouter as Router,
