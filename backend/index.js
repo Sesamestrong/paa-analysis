@@ -84,14 +84,14 @@ app.use(bodyParser.urlencoded({
     app.get("/challenges", async (req, res) => {
         const games = await Game.find();
         res.json(games.map(({
-            id,
+            _id,
             query,
             endTerm,
             numClicks,
             completed,
             allowAnswer
         }) => ({
-            id,
+            id:_id,
             query,
             endTerm,
             numClicks,

@@ -533,7 +533,7 @@ export default () => {
 		<Container>
 			<h1 className="title">People also asked</h1>
 			<p className="description">
-                            People also asked<sup><i className="fa fa-trademark"/></sup> is like if Google met the the Wikipedia Game. Instead of navigating wiki pages, you find your way through related google searches. When you search something or click on a question, you are provided 2-4 new questions related to it. Your job is to reach a question containing the target word. Remember to count your clicks!
+                            People also asked&trade; is like if Google met the the Wikipedia Game. Instead of navigating wiki pages, you find your way through related google searches. When you search something or click on a question, you are provided 2-4 new questions related to it. Your job is to reach a question containing the target word. Remember to count your clicks!
 			</p>
 			<h1 className="clicks">
 				{clicks} {clicks === 1 ? "Click" : "Clicks"}
