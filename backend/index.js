@@ -48,7 +48,7 @@ app.use(bodyParser.urlencoded({
         res.json({
             id: game._id,
             query: game.query,
-            questions: newQuestions,
+            questions: newQuestions||[],
             endTerm: game.endTerm,
             allowAnswer: game.allowAnswer,
             completed: game.completed
