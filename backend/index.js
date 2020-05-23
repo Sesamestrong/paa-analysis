@@ -37,7 +37,6 @@ app.use(bodyParser.urlencoded({
             idx,
             id
         } = req.query;
-        console.log(idx, id);
         if (!(idx && id !== undefined)) return res.status(400).json({
             err: "Required fields missing."
         });
@@ -45,11 +44,11 @@ app.use(bodyParser.urlencoded({
         if (!game) return res.status(404).json({
             err: "Game not found"
         });
-        await game.click(idx);
+        const newQuestions=await game.click(idx);
         res.json({
             id: game._id,
             query: game.query,
-            questions: game.questions,
+            questions: newQuestions,
             endTerm: game.endTerm,
             allowAnswer: game.allowAnswer,
             completed: game.completed

@@ -149,6 +149,7 @@ games.methods.click = async function(idx) {
     this.numClicks++;
     if (this.hasWon(newQuestions)) this.completed = true;
     await this.save();
+    return newQuestions;
 };
 games.methods.hasWon = function(questions = this.questions) {
     const lowKey = this.endTerm.toLowerCase();

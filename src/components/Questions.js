@@ -33,10 +33,10 @@ export default function Questions({
     const [won, setWon] = useState(false);
     const [id, setId] = useState(null);
     const click = idx => fetch(`${API_URL}/click?id=${encodeURIComponent(id)}&idx=${encodeURIComponent(idx)}`).then(res => res.json()).then(({
-        questions,
+        questions:newQuestions,
         completed,
     }) => {
-        setQuestions(questions);
+        setQuestions([...questions,...newQuestions]);
         setWon(completed);
     });
     useEffect(() => {
