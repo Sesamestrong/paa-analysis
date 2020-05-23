@@ -23,13 +23,16 @@ app.use(bodyParser.urlencoded({
             allowAnswer
         } = req.body;
         const game = await Game.new(query, endTerm, allowAnswer);
-        res.json({
+        if (game.questions) return res.json({
             id: game._id,
             query: game.query,
             questions: game.questions,
             endTerm: game.endTerm,
             allowAnswer: game.allowAnswer,
             completed: game.completed
+        });
+        return res.status(404).json({
+            err: "Starting query is not supported by Google People Also Asked"
         });
     });
     app.get("/click", async (req, res) => {
@@ -44,15 +47,19 @@ app.use(bodyParser.urlencoded({
         if (!game) return res.status(404).json({
             err: "Game not found"
         });
-        const newQuestions=await game.click(idx);
-        res.json({
+        const newQuestions = await game.click(idx);
+        if (newQuestions) return res.json({
             id: game._id,
             query: game.query,
-            questions: newQuestions||[],
+            questions: newQuestions || [],
             endTerm: game.endTerm,
             allowAnswer: game.allowAnswer,
             completed: game.completed
         });
+        return res.status(404).json({
+            err: "Starting query is not supported by Google People Also Asked"
+        });
+
     });
     app.get("/challenge", async (req, res) => {
         const {
