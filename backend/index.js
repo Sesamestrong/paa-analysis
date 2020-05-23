@@ -62,6 +62,9 @@ app.use(bodyParser.urlencoded({
             err: "Missing required field."
         });
         const game = await Game.findById(id);
+        if (!game) return res.status(404).json({
+            err: "Game not found"
+        });
         res.json({
             id: game._id,
             query: game.query,
