@@ -407,7 +407,7 @@ const NewItem = ({ children, delay, enabled, onClick }) => {
 			enabled={enabled}
 			onClick={enabled ? onClick : null}
 			delay={delay}>
-			<h3 className="accordion">{children}</h3>
+			<h3 className="accordion">{children?.[0]}</h3>
 			<h3 className="icon">
 				<i className="fa fa-plus"></i>
 			</h3>
@@ -514,11 +514,13 @@ export default () => {
 					questions: qs,
 					query,
 					endTerm,
+                                        numClicks,
 				} = await getChallenge(gameId);
 				//console.log(qs, query, endTerm, questions, enabled);
 				setFrom(query);
 				setTo(endTerm);
 				setEnabled(qs.map(() => true));
+                                setClicks(numClicks);
 				setQuestions(
 					qs.map((v, delay) => ({
 						...v,
@@ -553,6 +555,7 @@ export default () => {
 									const {
 										questions: qs,
 										completed,
+                                                                                numClicks,
 									} = await selectOption(gameId, i);
 									console.log(qs, questions, enabled);
 
@@ -569,12 +572,13 @@ export default () => {
 											delay,
 										})),
 									]);
-									setClicks(clicks + 1);
+									setClicks(numClicks);
 									setCompleted(completed);
 								}}
 								key={i}
 								delay={v.delay}>
 								{v.question}
+                                                                {v.answer}
 							</NewItem>
 						))}
 					</>

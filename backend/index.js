@@ -54,7 +54,8 @@ app.use(bodyParser.urlencoded({
             questions: newQuestions || [],
             endTerm: game.endTerm,
             allowAnswer: game.allowAnswer,
-            completed: game.completed
+            completed: game.completed,
+            numClicks:game.numClicks,
         });
         return res.status(404).json({
             err: "Starting query is not supported by Google People Also Asked"
@@ -78,7 +79,8 @@ app.use(bodyParser.urlencoded({
             questions: game.questions,
             endTerm: game.endTerm,
             allowAnswer: game.allowAnswer,
-            completed: game.completed
+            completed: game.completed,
+            numClicks:game.numClicks,
         });
     });
     app.get("/challenges", async (req, res) => {
