@@ -372,7 +372,7 @@ const NewItemContainer = styled.div`
 
 	display: flex;
 	align-items: center;
-	/* flex-direction: column; */
+	flex-direction: column;
 	box-shadow: 0 2px 8px 2px rgba(0, 0, 0, 0.05);
 
 	transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out;
@@ -388,6 +388,7 @@ const NewItemContainer = styled.div`
 	}
 
 	.icon {
+                display:none;
 		padding: 0.25rem 1.25rem;
 
 		transition: transform 0.25s ease-in-out, opacity 0.25s ease-in-out;
@@ -398,10 +399,20 @@ const NewItemContainer = styled.div`
 	&:hover {
 		transform: scale(1.05);
 	}
+
+        p {
+                margin:0em 2em;
+                height:0px;
+                overflow:hidden;
+                transition:height 0.25s ease-in-out;
+        }
+        
+        &:hover p {
+                height:6em; /* This upsets me greatly */
+        }
 `;
 
 const NewItem = ({ children, delay, enabled, onClick }) => {
-	console.log(enabled);
 	return (
 		<NewItemContainer
 			enabled={enabled}
@@ -411,6 +422,7 @@ const NewItem = ({ children, delay, enabled, onClick }) => {
 			<h3 className="icon">
 				<i className="fa fa-plus"></i>
 			</h3>
+                        <p className="answer">{children?.[1]}</p>
 		</NewItemContainer>
 	);
 };
@@ -533,9 +545,9 @@ export default () => {
 
 	return (
 		<Container>
-			<h1 className="title">People also asked</h1>
+			<h1 className="title">People also ask</h1>
 			<p className="description">
-                            People also asked&trade; is like if Google met the the Wikipedia Game. Instead of navigating wiki pages, you find your way through related google searches. When you search something or click on a question, you are provided 2-4 new questions related to it. Your job is to reach a question containing the target word. Remember to count your clicks!
+                            People also ask&trade; is like if Google met the the Wikipedia Game. Instead of navigating wiki pages, you find your way through related google searches. When you search something or click on a question, you are provided 2-4 new questions related to it. Your job is to reach a question containing the target word. Remember to count your clicks!
 			</p>
 			<h1 className="clicks">
 				{clicks} {clicks === 1 ? "Click" : "Clicks"}
