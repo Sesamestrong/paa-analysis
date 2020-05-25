@@ -401,14 +401,14 @@ const NewItemContainer = styled.div`
 	}
 
         p {
-                margin:0em 2em;
-                height:0px;
+                margin:0em 2em 1em;
+                max-height:0px;
                 overflow:hidden;
-                transition:height 0.25s ease-in-out;
+                transition:max-height 0.25s ease-in-out;
         }
         
         &:hover p {
-                height:6em; /* This upsets me greatly */
+                max-height:10em; /* This upsets me greatly */
         }
 `;
 
@@ -569,7 +569,6 @@ export default () => {
 										completed,
                                                                                 numClicks,
 									} = await selectOption(gameId, i);
-									console.log(qs, questions, enabled);
 
 									setEnabled([
 										...enabled.map((v, i2) =>
